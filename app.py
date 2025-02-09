@@ -1,10 +1,10 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 import pymysql
 from datetime import timedelta
 from dotenv import load_dotenv
 import os
 
-# Load environment variables from.env file
+# Load environment variables from .env file
 load_dotenv()
 
 app = Flask(__name__)
@@ -14,8 +14,6 @@ DB_HOST = os.getenv('DB_HOST')
 DB_USER = os.getenv('DB_USER')
 DB_PASSWORD = os.getenv('DB_PASSWORD')
 DB_NAME = os.getenv('DB_NAME')
-
-
 
 def get_db_connection():
     return pymysql.connect(
@@ -31,6 +29,10 @@ def convert_timedelta_to_string(obj):
     if isinstance(obj, timedelta):
         return str(obj)  # Convert timedelta to string
     raise TypeError(f"Object of type {type(obj).__name__} is not JSON serializable")
+
+@app.route('/')
+def home():
+    return render_template('index.html')  # Serve the front-end
 
 @app.route('/bus-routes', methods=['POST'])
 def get_bus_routes():
