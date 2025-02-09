@@ -1,4 +1,5 @@
 from flask import Flask, request, jsonify, render_template
+from flask_cors import CORS  
 import pymysql
 from datetime import timedelta
 from dotenv import load_dotenv
@@ -8,6 +9,7 @@ import os
 load_dotenv()
 
 app = Flask(__name__)
+CORS(app) 
 
 # Database configuration
 DB_HOST = os.getenv('DB_HOST')
