@@ -267,6 +267,39 @@ h2 {
     margin: 5px 0;
 }
 
+
+
+
+
+.suggestions {
+    position: absolute;
+    background: var(--card-background);
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    width: 300px;
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 1000;
+    display: none;
+}
+
+.suggestion-item {
+    padding: 10px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.suggestion-item:hover {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+
+
+
+
+
+
 /* Responsive Design */
 @media (max-width: 600px) {
     .container {
