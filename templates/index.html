@@ -5,39 +5,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bus Routes</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="container">
-        <h1>Bus Routes</h1>
+        <!-- Header with Bus Theme -->
+        <header>
+            <div class="bus-icon">🚌</div>
+            <h1>BusLens</h1>
+            <p>Find the best bus routes for your journey!</p>
+        </header>
+
+        <!-- Search Form -->
         <form id="busForm">
-            <label for="stop1">Stop 1:</label>
-            <input type="text" id="stop1" name="stop1" placeholder="Enter stop 1" required>
-            
-            <label for="stop2">Stop 2:</label>
-            <input type="text" id="stop2" name="stop2" placeholder="Enter stop 2" required>
-            
-            <button type="submit">Get Bus Routes</button>
+            <div class="input-group">
+                <label for="stop1">From:</label>
+                <input type="text" id="stop1" name="stop1" placeholder="Enter starting stop" required>
+            </div>
+            <div class="input-group">
+                <label for="stop2">To:</label>
+                <input type="text" id="stop2" name="stop2" placeholder="Enter destination stop" required>
+            </div>
+            <button type="submit">Find Bus Routes 🚍</button>
         </form>
 
+        <!-- Results Section -->
         <div id="results">
-            <!-- Bus routes will be displayed here -->
-            <table id="busTable">
-                <thead>
-                    <tr>
-                        <th>Route Number</th>
-                        <th>Start Point</th>
-                        <th>End Point</th>
-                        <th>Start Time</th>
-                        <th>End Time</th>
-                        <th>Frequency</th>
-                        <th>Number of Buses</th>
-                        <th>Route Length (km)</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Rows will be dynamically added here -->
-                </tbody>
-            </table>
+            <h2>Available Bus Routes</h2>
+            <div id="busTable">
+                <!-- Bus cards will be dynamically added here -->
+            </div>
         </div>
     </div>
 

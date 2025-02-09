@@ -16,26 +16,27 @@ document.getElementById('busForm').addEventListener('submit', function (e) {
     .then(response => response.json())
     .then(data => {
         // Clear previous results
-        const tableBody = document.querySelector('#busTable tbody');
-        tableBody.innerHTML = '';
+        const busTable = document.getElementById('busTable');
+        busTable.innerHTML = '';
 
         if (data.length === 0) {
-            tableBody.innerHTML = '<tr><td colspan="8" style="text-align: center;">No buses found.</td></tr>';
+            busTable.innerHTML = '<p class="no-results">No buses found. 🚫</p>';
         } else {
-            // Populate the table with bus route data
+            // Create bus cards for each route
             data.forEach(bus => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${bus.route_number}</td>
-                    <td>${bus.start_point}</td>
-                    <td>${bus.end_point}</td>
-                    <td>${bus.start_time}</td>
-                    <td>${bus.end_time}</td>
-                    <td>${bus.frequency}</td>
-                    <td>${bus.num_buses}</td>
-                    <td>${bus.route_length}</td>
+                const busCard = document.createElement('div');
+                busCard.className = 'bus-card';
+                busCard.innerHTML = `
+                    <h3>Route ${bus.route_number}</h3>
+                    <p><strong>From:</strong> ${bus.start_point}</p>
+                    <p><strong>To:</strong> ${bus.end_point}</p>
+                    <p><strong>Start Time:</strong> ${bus.start_time}</p>
+                    <p><strong>End Time:</strong> ${bus.end_time}</p>
+                    <p><strong>Frequency:</strong> ${bus.frequency}</p>
+                    <p><strong>Number of Buses:</strong> ${bus.num_buses}</p>
+                    <p><strong>Route Length:</strong> ${bus.route_length} km</p>
                 `;
-                tableBody.appendChild(row);
+                busTable.appendChild(busCard);
             });
         }
     })
