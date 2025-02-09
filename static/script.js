@@ -76,7 +76,7 @@ document.getElementById('busForm').addEventListener('submit', function(e) {
     const stop1 = stop1Input.value.replace(/^Sector /, '');
     const stop2 = stop2Input.value.replace(/^Sector /, '');
 
-    fetch('/bus-routes', {
+    fetch('https://ts413ix3oj.execute-api.ap-south-1.amazonaws.com/dev_ap_south_1/bus-routes', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
