@@ -1,3 +1,4 @@
 .env
 myenv
 myvenv
+zappa_settings.json
