@@ -1,3 +1,10 @@
+// Dark Theme Toggle
+const themeToggle = document.getElementById('themeToggle');
+themeToggle.addEventListener('change', () => {
+    document.body.setAttribute('data-theme', themeToggle.checked ? 'dark' : 'light');
+});
+
+// Fetch Bus Routes
 document.getElementById('busForm').addEventListener('submit', function (e) {
     e.preventDefault(); // Prevent form submission
 
