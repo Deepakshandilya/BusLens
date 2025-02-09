@@ -68,7 +68,7 @@ python app.py
 ## **🚀 Deployment Guide**
 
 Follow the complete deployment guide here:  
-📌 **[AWS Deployment Guide](AWS_zappa_deploy.md)**
+📌 **[My AWS Notes](aws_zappa_deploy.md)**
 
 ---
 
