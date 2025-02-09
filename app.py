@@ -16,13 +16,17 @@ DB_PASSWORD = os.getenv('DB_PASSWORD')
 DB_NAME = os.getenv('DB_NAME')
 
 def get_db_connection():
-    return pymysql.connect(
-        host=DB_HOST,
-        user=DB_USER,
-        password=DB_PASSWORD,
-        database=DB_NAME,
-        cursorclass=pymysql.cursors.DictCursor
-    )
+    try:
+        return pymysql.connect(
+            host=DB_HOST,
+            user=DB_USER,
+            password=DB_PASSWORD,
+            database=DB_NAME,
+            cursorclass=pymysql.cursors.DictCursor
+        )
+    except Exception as e:
+        print(f"Database connection failed: {str(e)}")
+        return None  # Handle this case in the API call
 
 def convert_timedelta_to_string(obj):
     """Convert timedelta objects to strings for JSON serialization."""
@@ -30,9 +34,9 @@ def convert_timedelta_to_string(obj):
         return str(obj)  # Convert timedelta to string
     raise TypeError(f"Object of type {type(obj).__name__} is not JSON serializable")
 
-@app.route('/')
-def home():
-    return render_template('index.html')  # Serve the front-end
+# @app.route('/')
+# def home():
+#     return render_template('index.html')  # Serve the front-end
 
 @app.route('/bus-routes', methods=['POST'])
 def get_bus_routes():
@@ -46,6 +50,9 @@ def get_bus_routes():
 
     # Connect to the database
     connection = get_db_connection()
+    if not connection:
+        return jsonify({"error": "Failed to connect to database"}), 500 
+   
     try:
         with connection.cursor() as cursor:
             # SQL query
@@ -74,5 +81,7 @@ def get_bus_routes():
     finally:
         connection.close()
 
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
+
+# NOT NEEDED IN ZAPPA 
+# if __name__ == '__main__':
+#     app.run(host='0.0.0.0', port=5000)
