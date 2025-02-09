@@ -67,7 +67,6 @@ def get_bus_routes():
             JOIN Stops s2 ON br2.stop_id = s2.stop_id
             WHERE s1.stop_name = %s 
             AND s2.stop_name = %s 
-            AND br1.stop_order < br2.stop_order;
             """
             # Execute the query
             cursor.execute(sql, (stop1, stop2))
