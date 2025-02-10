@@ -112,3 +112,27 @@ document.getElementById('busForm').addEventListener('submit', function(e) {
         console.error('Error:', error);
     });
 });
+
+// ********************************************
+// Show spinner when loading starts
+function showSpinner() {
+    document.getElementById("loading-spinner").style.display = "flex";
+}
+
+// Hide spinner when loading is complete
+function hideSpinner() {
+    document.getElementById("loading-spinner").style.display = "none";
+}
+
+// Example: Show spinner when fetching data
+document.addEventListener("DOMContentLoaded", function() {
+    showSpinner(); // Show spinner when the page starts loading
+
+    setTimeout(() => {
+        hideSpinner(); // Simulate data loading completion (replace this with real API call)
+    }, 2000); // Adjust delay as needed
+});
+
+window.addEventListener("load", function() {
+    document.getElementById("loading-spinner").style.display = "none";
+});

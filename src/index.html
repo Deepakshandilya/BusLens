@@ -2,23 +2,36 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bus Route Finder</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">    
+    <title>BusLens</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="128x128" href="favicon.png">
+
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
+    <!-- spinner -->
+    <div id="loading-spinner">
+        <div class="bus-emoji">🚌</div>
+    </div>
+    
+    
+    
     <!-- Menu Bar -->
     <nav class="menu-bar">
-        <div class="logo">BusLens</div>
-        <ul class="menu">
-            <br>
+        <div class="menu-left">
+            <img src="favicon.png" alt="BusLens Logo" class="logo-img">
+            <span class="logo-text">BusLens</span>
+        </div>
+
+        <!-- <ul class="menu">
             <li><a href="#">Home</a></li>
             <li><a href="#">About</a></li>
             <li><a href="#">Contact</a></li>
+        </ul> -->
 
-        </ul>
         <div class="theme-toggle">
             <i class="fas fa-moon"></i>
             <label class="switch">
@@ -27,6 +40,7 @@
             </label>
         </div>
     </nav>
+
 
     <!-- Main Container -->
     <div class="container">
@@ -340,7 +354,7 @@
             </div>
         </div>
     </div>
-
+    
     <script src="script.js"></script>
 </body>
 </html>
