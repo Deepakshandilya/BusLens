@@ -94,7 +94,12 @@ zappa update dev
 ```
 ### **🔄 Update Frontend (S3 - HTML, CSS, JS)**
 ```bash
-aws s3 cp index.html s3://buslens-frontend/ --acl public-read
+aws s3 cp index.html s3://bucket-name/ --acl public-read
+
+ aws s3 sync . s3://bucket-name --delete  
+ aws s3 ls s3://bucket-name --recursive 
+ aws cloudfront create-invalidation --distribution-id distribution_id --paths "/*"
+ aws cloudfront get-distribution --id distribution_id --query "Distribution.Status"
 ```
 
 ---
