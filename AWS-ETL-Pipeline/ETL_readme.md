@@ -131,4 +131,4 @@ glueContext.write_dynamic_frame.from_options(
 
 ![alt text](<Screenshot 2025-02-14 232237.png>)
 
-![alt text](<Screenshot 2025-02-14 232803.png>)
+![alt text](<BusLens\AWS-ETL-Pipeline\aws_ss\Screenshot 2025-02-14 232803.png>)
