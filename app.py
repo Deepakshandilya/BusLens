@@ -5,13 +5,11 @@ from datetime import timedelta
 from dotenv import load_dotenv
 import os
 
-# Load environment variables from .env file
 load_dotenv()
 
 app = Flask(__name__)
 CORS(app) 
 
-# Database configuration
 DB_HOST = os.getenv('DB_HOST')
 DB_USER = os.getenv('DB_USER')
 DB_PASSWORD = os.getenv('DB_PASSWORD')
@@ -28,12 +26,12 @@ def get_db_connection():
         )
     except Exception as e:
         print(f"Database connection failed: {str(e)}")
-        return None  # Handle this case in the API call
+        return None  
 
 def convert_timedelta_to_string(obj):
     """Convert timedelta objects to strings for JSON serialization."""
     if isinstance(obj, timedelta):
-        return str(obj)  # Convert timedelta to string
+        return str(obj)  
     raise TypeError(f"Object of type {type(obj).__name__} is not JSON serializable")
 
 # @app.route('/')

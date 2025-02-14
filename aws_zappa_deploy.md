@@ -137,7 +137,7 @@ zappa update dev
 
 ### **Update Frontend (S3 - HTML, CSS, JS)**
 ```bash
-aws s3 cp index.html s3://busket-name/ --acl public-read
+aws s3 cp index.html s3://bucket-name/ --acl public-read
 ```
 
 ---
