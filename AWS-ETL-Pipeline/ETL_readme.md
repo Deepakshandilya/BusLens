@@ -125,10 +125,11 @@ glueContext.write_dynamic_frame.from_options(
 - **Glue Job:** Transformed data and loaded it into Redshift.
 
 ---
-![alt text](<aws_ss\Screenshot 2025-02-14 232340.png>)
+![Screenshot 2025-02-14 232107](https://github.com/user-attachments/assets/e308fc0d-3c86-4549-828a-f884033f5709)
 
-![alt text](<AWS-ETL-Pipeline\aws_ss\Screenshot 2025-02-14 232107.png>)
+![Screenshot 2025-02-14 232237](https://github.com/user-attachments/assets/f569e247-b11f-435c-b226-2f6691a5b002)
 
-![alt text](<Screenshot 2025-02-14 232237.png>)
+![Screenshot 2025-02-14 232803](https://github.com/user-attachments/assets/d7f41bec-fb2a-405b-893e-fc60a7ecf33c)
 
-![alt text](<BusLens\AWS-ETL-Pipeline\aws_ss\Screenshot 2025-02-14 232803.png>)
+![Screenshot 2025-02-14 232340](https://github.com/user-attachments/assets/2b516015-f4a0-407d-b41a-73257b53f378)
+
