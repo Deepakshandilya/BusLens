@@ -1,4 +1,4 @@
-# ETL Data Pipeline using AWS Glue, Redshift, PySpark, and S3
+# ETL Data Pipeline using AWS Glue, Redshift, PySpark, and S3 
 
 ## Overview
 This project demonstrates the creation of a data pipeline leveraging AWS Glue, Amazon Redshift, PySpark, and Amazon S3. The pipeline extracts data from S3, transforms it using PySpark in Glue, and loads the transformed data into Redshift for further analysis.
