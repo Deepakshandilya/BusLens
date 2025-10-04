@@ -3,5 +3,6 @@ myenv
 myvenv
 zappa_settings.json
 awsbillss.png
-src/buslens-app/
-src/frontend/
+
+AWS-ETL-Pipeline/
+data_cleaning/
