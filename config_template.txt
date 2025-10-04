@@ -1,0 +1,20 @@
+# Database Configuration for Local Development
+# Create a .env file in your project root with these values:
+
+DB_HOST=localhost
+DB_USER=your_username
+DB_PASSWORD=your_password
+DB_NAME=buslens_db
+
+# Example for MySQL:
+# DB_HOST=localhost
+# DB_USER=root
+# DB_PASSWORD=mypassword
+# DB_NAME=buslens_db
+
+# Example for AWS RDS (if you want to use remote database):
+# DB_HOST=your-rds-endpoint.region.rds.amazonaws.com
+# DB_USER=admin
+# DB_PASSWORD=your_rds_password
+# DB_NAME=buslens
+

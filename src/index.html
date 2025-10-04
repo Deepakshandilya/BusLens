@@ -8,11 +8,14 @@
     <link rel="icon" type="image/png" sizes="128x128" href="favicon.png">
 
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
-    <!-- spinner -->
+    <!-- Scroll Progress Indicator -->
+    <div class="scroll-progress"></div>
+    
+    <!-- Loading Spinner -->
     <div id="loading-spinner">
         <div class="bus-emoji">🚌</div>
     </div>
@@ -47,8 +50,8 @@
         <!-- Header with Bus Animation -->
         <header>
             <div class="bus-icon">🚌</div>
-            <h1>Bus Route Finder</h1>
-            <p>Find the best bus routes for your journey!</p>
+            <h1>Smart Bus Route Finder</h1>
+            <p>Discover the fastest, most convenient bus routes across the city with real-time information and smart recommendations</p>
         </header>
 
         <!-- Search Form -->
@@ -61,7 +64,7 @@
                 <label for="stop2">To:</label>
                 <input type="text" id="stop2" name="stop2" placeholder="Enter destination stop" list="stops" required>
             </div>
-            <button type="submit" id="findButton">Find Bus Routes 🚍</button>
+            <button type="submit" id="findButton">Find My Perfect Route 🚍</button>
         </form>
 
         <!-- Datalist for Autocomplete Suggestions -->
