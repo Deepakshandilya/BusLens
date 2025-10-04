@@ -3,6 +3,6 @@ myenv
 myvenv
 zappa_settings.json
 awsbillss.png
-
+frontend/node_modules
 AWS-ETL-Pipeline/
 data_cleaning/

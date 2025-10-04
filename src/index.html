@@ -2,14 +2,37 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">    
-    <title>BusLens</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BusLens - Smart Bus Route Finder for Tricity</title>
+    <meta name="description" content="Discover the fastest, most convenient bus routes across Chandigarh, Mohali, and Panchkula with real-time information and smart recommendations.">
+    
     <!-- Favicon -->
     <link rel="icon" type="image/png" sizes="128x128" href="favicon.png">
-
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    
+    <!-- Map Libraries -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    
+    <!-- 3D Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+    
+    <!-- Animation Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    
+    <!-- Chart Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- Particle System -->
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <!-- Scroll Progress Indicator -->
@@ -20,344 +43,463 @@
         <div class="bus-emoji">🚌</div>
     </div>
     
-    
-    
-    <!-- Menu Bar -->
-    <nav class="menu-bar">
-        <div class="menu-left">
-            <img src="favicon.png" alt="BusLens Logo" class="logo-img">
-            <span class="logo-text">BusLens</span>
-        </div>
-
-        <!-- <ul class="menu">
-            <li><a href="#">Home</a></li>
-            <li><a href="#">About</a></li>
-            <li><a href="#">Contact</a></li>
-        </ul> -->
-
-        <div class="theme-toggle">
-            <i class="fas fa-moon"></i>
-            <label class="switch">
-                <input type="checkbox" id="themeToggle" aria-label="Toggle dark theme">
-                <span class="slider"></span>
-            </label>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <img src="favicon.png" alt="BusLens Logo" class="logo-img">
+                <span class="logo-text">BusLens</span>
+            </div>
+            
+            <ul class="nav-menu" id="nav-menu">
+                <li class="nav-item">
+                    <a href="#home" class="nav-link active">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#routes" class="nav-link">Routes</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#map" class="nav-link">Map</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#about" class="nav-link">About</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#contact" class="nav-link">Contact</a>
+                </li>
+            </ul>
+            
+            <div class="nav-actions">
+                <div class="theme-toggle">
+                    <i class="fas fa-moon"></i>
+                    <label class="switch">
+                        <input type="checkbox" id="themeToggle" aria-label="Toggle dark theme">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <button class="nav-toggle" id="nav-toggle">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </button>
+            </div>
         </div>
     </nav>
 
-
-    <!-- Main Container -->
-    <div class="container">
-        <!-- Header with Bus Animation -->
-        <header>
-            <div class="bus-icon">🚌</div>
-            <h1>Smart Bus Route Finder</h1>
-            <p>Discover the fastest, most convenient bus routes across the city with real-time information and smart recommendations</p>
-        </header>
-
-        <!-- Search Form -->
-        <form id="busForm">
-            <div class="input-group">
-                <label for="stop1">From:</label>
-                <input type="text" id="stop1" name="stop1" placeholder="Enter starting stop" list="stops" required>
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-background">
+            <div class="hero-particles"></div>
+        </div>
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1 class="hero-title">
+                    <span class="hero-title-main">Smart Bus Routes</span>
+                    <span class="hero-title-sub">for Tricity</span>
+                </h1>
+                <p class="hero-description">
+                    Discover the fastest, most convenient bus routes across Chandigarh, Mohali, and Panchkula with real-time information and smart recommendations.
+                </p>
+                <div class="hero-search">
+                    <form id="heroSearchForm" class="hero-search-form">
+                        <div class="search-inputs">
+                            <div class="input-group">
+                                <i class="fas fa-map-marker-alt input-icon"></i>
+                                <input type="text" id="heroStop1" placeholder="From where?" required>
+                            </div>
+                            <div class="input-group">
+                                <i class="fas fa-map-marker-alt input-icon"></i>
+                                <input type="text" id="heroStop2" placeholder="To where?" required>
+                            </div>
+                            <button type="submit" class="search-btn">
+                                <i class="fas fa-search"></i>
+                                Find Routes
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <div class="stat-number">65+</div>
+                        <div class="stat-label">Bus Routes</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">700+</div>
+                        <div class="stat-label">Bus Stops</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">24/7</div>
+                        <div class="stat-label">Real-time Info</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">3</div>
+                        <div class="stat-label">Cities Covered</div>
+                    </div>
+                </div>
             </div>
-            <div class="input-group">
-                <label for="stop2">To:</label>
-                <input type="text" id="stop2" name="stop2" placeholder="Enter destination stop" list="stops" required>
-            </div>
-            <button type="submit" id="findButton">Find My Perfect Route 🚍</button>
-        </form>
-
-        <!-- Datalist for Autocomplete Suggestions -->
-        <datalist id="stops">
-            <!-- Add all your stops here -->
-            <option value="Sector 1">
-            <option value="Sector 10/11">
-            <option value="Sector 10/15 Panchkula Bus Stand">
-            <option value="Sector 10/16">
-            <option value="Sector 11 (65 Market Outer)">
-            <option value="Sector 11/10">
-            <option value="Sector 11/15">
-            <option value="Sector 11/15 Panchkula">
-            <option value="Sector 12/11 Panchkula">
-            <option value="Sector 123">
-            <option value="Sector 14/15">
-            <option value="Sector 15/11">
-            <option value="Sector 15/14">
-            <option value="Sector 16 Hospital">
-            <option value="Sector 16/10">
-            <option value="Sector 16/17">
-            <option value="Sector 17">
-            <option value="Sector 17 Bus Stand">
-            <option value="Sector 17/16">
-            <option value="Sector 17/18">
-            <option value="Sector 17/9">
-            <option value="Sector 18">
-            <option value="Sector 18 Market">
-            <option value="Sector 18/8">
-            <option value="Sector 19">
-            <option value="Sector 19 Market">
-            <option value="Sector 19/20">
-            <option value="Sector 19/27">
-            <option value="Sector 19/7">
-            <option value="Sector 2">
-            <option value="Sector 20">
-            <option value="Sector 20 Market">
-            <option value="Sector 20/21">
-            <option value="Sector 20/30">
-            <option value="Sector 20/33">
-            <option value="Sector 21">
-            <option value="Sector 21 Market">
-            <option value="Sector 21/34">
-            <option value="Sector 22/17">
-            <option value="Sector 22/23">
-            <option value="Sector 23 Market">
-            <option value="Sector 23/22">
-            <option value="Sector 24 Market">
-            <option value="Sector 24 Panchkula">
-            <option value="Sector 24/23">
-            <option value="Sector 24/25">
-            <option value="Sector 25 Panchkula">
-            <option value="Sector 25/24">
-            <option value="Sector 25/38">
-            <option value="Sector 26">
-            <option value="Sector 26 Panchkula">
-            <option value="Sector 26/27">
-            <option value="Sector 26/28">
-            <option value="Sector 27">
-            <option value="Sector 27 Market">
-            <option value="Sector 27/19">
-            <option value="Sector 27/26">
-            <option value="Sector 27/28">
-            <option value="Sector 28">
-            <option value="Sector 28 Market">
-            <option value="Sector 28 Petrol Pump">
-            <option value="Sector 28/26 Grain Market">
-            <option value="Sector 28/27">
-            <option value="Sector 29">
-            <option value="Sector 29 Market">
-            <option value="Sector 29 Nursery">
-            <option value="Sector 29/30">
-            <option value="Sector 29/31">
-            <option value="Sector 30">
-            <option value="Sector 30 Market">
-            <option value="Sector 30/20">
-            <option value="Sector 30/29">
-            <option value="Sector 30/32">
-            <option value="Sector 31 Market">
-            <option value="Sector 31/32">
-            <option value="Sector 31/32 Market">
-            <option value="Sector 32">
-            <option value="Sector 32 Market">
-            <option value="Sector 32 SD College">
-            <option value="Sector 32/31">
-            <option value="Sector 32/31 Hospital">
-            <option value="Sector 32/33">
-            <option value="Sector 33 Market">
-            <option value="Sector 33/32">
-            <option value="Sector 34 Market">
-            <option value="Sector 34/35">
-            <option value="Sector 35/22">
-            <option value="Sector 35/34">
-            <option value="Sector 35/36">
-            <option value="Sector 36 Market">
-            <option value="Sector 36/35">
-            <option value="Sector 36/37">
-            <option value="Sector 37 Market">
-            <option value="Sector 37/24">
-            <option value="Sector 37/38">
-            <option value="Sector 38 Market">
-            <option value="Sector 38 West">
-            <option value="Sector 38 West Light Point">
-            <option value="Sector 38/25">
-            <option value="Sector 38/37">
-            <option value="Sector 38/40">
-            <option value="Sector 39">
-            <option value="Sector 39 Market">
-            <option value="Sector 39/38">
-            <option value="Sector 39/52">
-            <option value="Sector 40">
-            <option value="Sector 40/41">
-            <option value="Sector 41">
-            <option value="Sector 41 Market">
-            <option value="Sector 41/40">
-            <option value="Sector 41/42">
-            <option value="Sector 42">
-            <option value="Sector 42 College">
-            <option value="Sector 42 Market">
-            <option value="Sector 42/43">
-            <option value="Sector 43">
-            <option value="Sector 43/42">
-            <option value="Sector 43/44">
-            <option value="Sector 44">
-            <option value="Sector 44 Market">
-            <option value="Sector 44/43">
-            <option value="Sector 44/45">
-            <option value="Sector 45">
-            <option value="Sector 45 Market">
-            <option value="Sector 45/46">
-            <option value="Sector 46">
-            <option value="Sector 46/45">
-            <option value="Sector 46/47">
-            <option value="Sector 47 Market">
-            <option value="Sector 47 Outer">
-            <option value="Sector 47/46">
-            <option value="Sector 48">
-            <option value="Sector 48 Jagatpura">
-            <option value="Sector 48 Market">
-            <option value="Sector 49">
-            <option value="Sector 50">
-            <option value="Sector 50/49">
-            <option value="Sector 51">
-            <option value="Sector 51 Market">
-            <option value="Sector 51/50">
-            <option value="Sector 52/53">
-            <option value="Sector 52/61">
-            <option value="Sector 60/61">
-            <option value="Sector 62/63">
-            <option value="Sector 63/64">
-            <option value="Sector 64/63">
-            <option value="Sector 65 Market Outer">
-            <option value="Sector 66">
-            <option value="Sector 66 Market">
-            <option value="Sector 66/67">
-            <option value="Sector 67/66">
-            <option value="Sector 67/81">
-            <option value="Sector 68/67">
-            <option value="Sector 68/69">
-            <option value="Sector 68/80">
-            <option value="Sector 69/70">
-            <option value="Sector 69/79">
-            <option value="Sector 7">
-            <option value="Sector 7/19">
-            <option value="Sector 8/17 Panchkula">
-            <option value="Sector 8/18">
-            <option value="Sector 9">
-            <option value="Sector 9 Market">
-            <option value="Sector 9/16 Panchkula">
-            <option value="Sector 9/17">
-            <option value="Airport">
-            <option value="Airport Chowk">
-            <option value="Aroma">
-            <option value="Attawa">
-            <option value="Badheri Chowk">
-            <option value="Balongi">
-            <option value="Bankharpur">
-            <option value="Behlana">
-            <option value="Bird Park">
-            <option value="Chandigarh">
-            <option value="City">
-            <option value="College">
-            <option value="Colony No. 4">
-            <option value="Command Hospital">
-            <option value="CTU Depot">
-            <option value="CTU Workshop">
-            <option value="Daddu Majra Village">
-            <option value="Dera Bassi">
-            <option value="Desu Majra">
-            <option value="Dhakoli">
-            <option value="Dhanas">
-            <option value="DLF Chowk">
-            <option value="DMC">
-            <option value="Eco City">
-            <option value="Elante Mall">
-            <option value="F/Chowk">
-            <option value="Fortis Hospital">
-            <option value="Franco Hotel">
-            <option value="Furniture Chowk">
-            <option value="GMCH-32">
-            <option value="Grain Market">
-            <option value="Housing Board Chowk">
-            <option value="Industrial Area">
-            <option value="Industrial Area Mohali">
-            <option value="Industrial Area Phase-1">
-            <option value="Industrial Area Phase-2">
-            <option value="ISBT-17">
-            <option value="ISBT-43">
-            <option value="IT Park">
-            <option value="IVY Hospital">
-            <option value="Jagatpura">
-            <option value="Jalvayu Tower">
-            <option value="Jayanti Majra">
-            <option value="Jheurheri">
-            <option value="Joshi Farm">
-            <option value="K.C. UT Secretariat">
-            <option value="Kaimbwala">
-            <option value="Kalagram">
-            <option value="Kharar">
-            <option value="Khuda Ali Sher">
-            <option value="Khuda Lahora">
-            <option value="Kishangarh">
-            <option value="Kissan Bhawan">
-            <option value="Kumbra">
-            <option value="Kurali">
-            <option value="Lake">
-            <option value="Lake Chowk">
-            <option value="Lakhnaur">
-            <option value="Landran">
-            <option value="Madhya Marg">
-            <option value="Maloya">
-            <option value="Maloya Sector 38 West Light Point">
-            <option value="Manimajra">
-            <option value="Mansa Devi">
-            <option value="Mata Mansa Devi">
-            <option value="MLA Flats">
-            <option value="Mubarakpur">
-            <option value="Mullanpur">
-            <option value="Mullanpur Eco City">
-            <option value="Mundi Kharar">
-            <option value="Nada Sahib">
-            <option value="New Airport Chowk">
-            <option value="New Maloya Colony">
-            <option value="New OPD">
-            <option value="Old Barrier">
-            <option value="Omaxe Phase-II">
-            <option value="OPD">
-            <option value="Panchkula">
-            <option value="Parol">
-            <option value="PEC">
-            <option value="PGI">
-            <option value="Phase-11 (65 Market Outer)">
-            <option value="Phase-5/3 Light Point Madanpur">
-            <option value="Phase-6">
-            <option value="Piccadilly Chowk">
-            <option value="PSPB">
-            <option value="Punjab Civil Secretariat">
-            <option value="Railway Crossing">
-            <option value="Railway Station">
-            <option value="Raily Chowk">
-            <option value="Raipur Kalan">
-            <option value="Ram Darbar">
-            <option value="Ramgarh">
-            <option value="Rani Majra">
-            <option value="Rasulpur">
-            <option value="Rock Garden">
-            <option value="Saneta">
-            <option value="Sector Punjab Barrier">
-            <option value="Singhpura">
-            <option value="Sohana">
-            <option value="Sohana Gurdwara Sahib">
-            <option value="Sukhna Lake">
-            <option value="Tank Chowk">
-            <option value="Todde Majra">
-            <option value="Transport Chowk">
-            <option value="Tribune Chowk">
-            <option value="University">
-            <option value="Victoria Enclave">
-            <option value="Vikas Nagar">
-            <option value="White House">
-            <option value="YPS Chowk">
-            <option value="Zirakpur">
-        </datalist>
-
-        <!-- Results Section -->
-        <div id="results">
-            <h2>Available Bus Routes</h2>
-            <div id="busTable">
-                <!-- Bus cards will be dynamically added here -->
+            <div class="hero-visual">
+                <div class="hero-3d-container">
+                    <canvas id="bus3d-canvas"></canvas>
+                    <div class="hero-bus-fallback">
+                        <div class="bus-icon">🚌</div>
+                        <div class="bus-trail"></div>
+                    </div>
+                </div>
+                <div class="hero-particles" id="particles-js"></div>
             </div>
         </div>
-    </div>
-    
+        <div class="hero-scroll">
+            <div class="scroll-indicator">
+                <span>Scroll to explore</span>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+        </div>
+    </section>
+
+    <!-- Routes Section -->
+    <section id="routes" class="routes-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Find Your Perfect Route</h2>
+                <p class="section-description">Search and discover the best bus routes for your journey</p>
+            </div>
+            
+            <div class="search-container">
+                <form id="busForm" class="search-form">
+                    <div class="search-inputs">
+                        <div class="input-group">
+                            <label for="stop1">From</label>
+                            <input type="text" id="stop1" name="stop1" placeholder="Enter starting stop" required>
+                        </div>
+                        <div class="input-group">
+                            <label for="stop2">To</label>
+                            <input type="text" id="stop2" name="stop2" placeholder="Enter destination stop" required>
+                        </div>
+                        <button type="submit" class="search-button">
+                            <i class="fas fa-search"></i>
+                            Find Routes
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Results Section -->
+            <div id="results" class="results-section">
+                <div id="busTable" class="routes-grid">
+                    <!-- Bus cards will be dynamically added here -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Map Section -->
+    <section id="map" class="map-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Interactive Tricity Map</h2>
+                <p class="section-description">Explore bus routes and stops across Chandigarh, Mohali, and Panchkula</p>
+            </div>
+            
+            <div class="map-container">
+                <div id="map" class="map"></div>
+                <div class="map-controls">
+                    <div class="map-legend">
+                        <h4>Legend</h4>
+                        <div class="legend-item">
+                            <div class="legend-color route-color"></div>
+                            <span>Bus Routes</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color stop-color"></div>
+                            <span>Bus Stops</span>
+                        </div>
+                    </div>
+                    <div class="map-filters">
+                        <button class="filter-btn active" data-filter="all">All Routes</button>
+                        <button class="filter-btn" data-filter="chandigarh">Chandigarh</button>
+                        <button class="filter-btn" data-filter="mohali">Mohali</button>
+                        <button class="filter-btn" data-filter="panchkula">Panchkula</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Insights Section -->
+    <section class="insights-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Tricity Bus Network Insights</h2>
+                <p class="section-description">Real-time data and analytics for better travel decisions</p>
+            </div>
+            
+            <div class="insights-grid">
+                <div class="insight-card">
+                    <div class="insight-header">
+                        <h3>Route Coverage</h3>
+                        <i class="fas fa-route"></i>
+                    </div>
+                    <div class="insight-chart">
+                        <canvas id="routeChart"></canvas>
+                    </div>
+                    <div class="insight-stats">
+                        <div class="stat">
+                            <span class="stat-value">65+</span>
+                            <span class="stat-label">Active Routes</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-value">700+</span>
+                            <span class="stat-label">Bus Stops</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="insight-card">
+                    <div class="insight-header">
+                        <h3>Peak Hours</h3>
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="insight-chart">
+                        <canvas id="peakChart"></canvas>
+                    </div>
+                    <div class="insight-stats">
+                        <div class="stat">
+                            <span class="stat-value">7-9 AM</span>
+                            <span class="stat-label">Morning Peak</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-value">5-7 PM</span>
+                            <span class="stat-label">Evening Peak</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="insight-card">
+                    <div class="insight-header">
+                        <h3>City Distribution</h3>
+                        <i class="fas fa-map-marked-alt"></i>
+                    </div>
+                    <div class="insight-chart">
+                        <canvas id="cityChart"></canvas>
+                    </div>
+                    <div class="insight-stats">
+                        <div class="stat">
+                            <span class="stat-value">45%</span>
+                            <span class="stat-label">Chandigarh</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-value">30%</span>
+                            <span class="stat-label">Mohali</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-value">25%</span>
+                            <span class="stat-label">Panchkula</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Why Choose BusLens?</h2>
+                <p class="section-description">Experience the future of public transportation</p>
+            </div>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-route"></i>
+                    </div>
+                    <h3>Smart Route Planning</h3>
+                    <p>AI-powered route optimization to find the fastest and most convenient journeys</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h3>Real-time Updates</h3>
+                    <p>Live bus tracking and real-time arrival information for accurate planning</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-map-marked-alt"></i>
+                    </div>
+                    <h3>Interactive Maps</h3>
+                    <p>Visualize routes and stops on detailed maps of the entire tricity area</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3>Mobile Optimized</h3>
+                    <p>Seamless experience across all devices with offline capabilities</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about-section">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text">
+                    <h2 class="section-title">About BusLens</h2>
+                    <p class="about-description">
+                        BusLens is a comprehensive bus route planning platform designed specifically for the Tricity area. 
+                        We combine cutting-edge technology with local expertise to provide the most accurate and 
+                        user-friendly public transportation information.
+                    </p>
+                    <div class="about-features">
+                        <div class="about-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Comprehensive route database</span>
+                        </div>
+                        <div class="about-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Real-time bus tracking</span>
+                        </div>
+                        <div class="about-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Interactive map visualization</span>
+                        </div>
+                        <div class="about-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Mobile-first design</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-visual">
+                    <div class="about-image">
+                        <div class="image-placeholder">
+                            <i class="fas fa-bus"></i>
+                            <span>Tricity Bus Network</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Get in Touch</h2>
+                <p class="section-description">Have questions or suggestions? We'd love to hear from you!</p>
+            </div>
+            
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <h4>Email</h4>
+                            <p>info@buslens.com</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <h4>Phone</h4>
+                            <p>+91 98765 43210</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <h4>Address</h4>
+                            <p>Chandigarh, India</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <form class="contact-form">
+                    <div class="form-group">
+                        <input type="text" placeholder="Your Name" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" placeholder="Your Email" required>
+                    </div>
+                    <div class="form-group">
+                        <textarea placeholder="Your Message" rows="5" required></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">
+                        <i class="fas fa-paper-plane"></i>
+                        Send Message
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <img src="favicon.png" alt="BusLens Logo">
+                        <span>BusLens</span>
+                    </div>
+                    <p>Smart bus route planning for the Tricity area</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#routes">Routes</a></li>
+                        <li><a href="#map">Map</a></li>
+                        <li><a href="#about">About</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Support</h4>
+                    <ul>
+                        <li><a href="#contact">Contact</a></li>
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Connect</h4>
+                    <div class="social-links">
+                        <a href="https://github.com/deepakshandilya" target="_blank" rel="noopener">
+                            <i class="fab fa-github"></i>
+                            <span>GitHub</span>
+                        </a>
+                        <a href="https://linkedin.com/in/deepakshandilyaa" target="_blank" rel="noopener">
+                            <i class="fab fa-linkedin"></i>
+                            <span>LinkedIn</span>
+                        </a>
+                        <a href="mailto:deepakshandilya@gmail.com">
+                            <i class="fas fa-envelope"></i>
+                            <span>Email</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 BusLens. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Suggestions Dropdown -->
+    <div class="suggestions" id="suggestions"></div>
+
+    <!-- Scripts -->
     <script src="script.js"></script>
 </body>
 </html>
