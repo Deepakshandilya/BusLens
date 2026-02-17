@@ -1,5 +1,5 @@
 from sqlalchemy import text 
-from sqlalchemy import Session
+from sqlalchemy.orm import Session
 
 def search_stops(db: Session ,query: str, limit: int) -> list[dict]:
     """

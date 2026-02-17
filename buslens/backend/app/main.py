@@ -1,0 +1,30 @@
+from fastapi import FastAPI
+
+from app.core.logging import setup_logging 
+from app.core.cors import add_cors
+
+from app.api.v1.health import router as health_router
+from app.api.v1.stops import router as stops_router
+from app.api.v1.routes import router as routes_router 
+
+def create_app() -> FastAPI:
+    setup_logging
+
+    app = FastAPI(
+        title="BusLens API",
+        version="1.0.0",
+        openapi_url="/openapi.json",
+        docs_url="/docs",
+    )
+
+    add_cors(app)
+
+    # v1 router
+    app.include_router(health_router, prefix="/v1", tags=["health"])
+    app.include_router(stops_router, prefix="/v1", tags=["stops"])
+    app.include_router(routes_router, prefix="/v1", tags=["routes"])
+
+    return app
+
+
+app = create_app()

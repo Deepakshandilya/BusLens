@@ -4,6 +4,6 @@ class StopOut(BaseModel):
     id: int 
     name: str
 
-class StopResponse(BaseModel):
+class StopsResponse(BaseModel):
     query: str
     results: list[StopOut]
