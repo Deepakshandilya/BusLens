@@ -6,3 +6,4 @@ awsbillss.png
 frontend/node_modules
 AWS-ETL-Pipeline/
 data_cleaning/
+node_modules/

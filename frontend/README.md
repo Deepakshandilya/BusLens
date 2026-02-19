@@ -1,213 +1,181 @@
-# BusLens - Intelligent Transit Platform
+# BusLens Frontend
 
-A modern, real-time bus tracking and route planning application for the Tricity region (Chandigarh, Panchkula, Mohali).
+A modern, responsive frontend for the BusLens bus route finder application built with Next.js 14, TypeScript, and Tailwind CSS.
 
 ## 🚀 Features
 
-- **Real-time Bus Tracking** - Live bus locations and status updates
-- **Smart Route Planning** - AI-powered route suggestions with multiple options
-- **Interactive Map** - Visual representation of bus routes and stops
-- **Station Search** - Comprehensive station database with autocomplete
-- **Analytics Dashboard** - System insights and performance metrics
-- **Mobile-First Design** - Optimized for all device sizes
-- **Dark Mode** - Beautiful dark and light themes
+- **Modern UI/UX**: Clean, responsive design with dark/light theme support
+- **Route Search**: Intelligent bus route search with autocomplete
+- **Interactive Maps**: Real-time bus stop and route visualization
+- **Analytics Dashboard**: Data visualization with charts and insights
+- **Mobile-First**: Optimized for all device sizes
+- **Accessibility**: WCAG compliant with keyboard navigation
+- **Performance**: Optimized with Next.js 14 and modern React patterns
 
-## 🛠 Tech Stack
+## 🛠️ Tech Stack
 
-### Frontend
-- **React 18** - Modern React with hooks and functional components
-- **Vite** - Lightning-fast build tool and dev server
-- **Tailwind CSS** - Utility-first CSS framework
-- **React Leaflet** - Interactive maps
-- **Recharts** - Data visualization
-- **Framer Motion** - Smooth animations
-- **Socket.IO** - Real-time communication
-
-### Backend
-- **Flask** - Python web framework
-- **MySQL** - Database for persistent storage
-- **Flask-SocketIO** - WebSocket support for real-time updates
-- **MySQL Connector** - Python MySQL driver
+- **Framework**: Next.js 14 with App Router
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS
+- **State Management**: Zustand
+- **UI Components**: Radix UI + Custom components
+- **Charts**: Recharts
+- **Maps**: Mapbox GL JS (ready for integration)
+- **Animations**: Framer Motion
+- **Icons**: Lucide React
 
 ## 📦 Installation
 
-### Prerequisites
-- Node.js 18+ and npm
-- Python 3.8+
-- MySQL 8.0+
-
-### Frontend Setup
-
-```bash
-# Navigate to frontend directory
-cd frontend
-
-# Install dependencies
-npm install
-
-# Start development server
-npm run dev
-```
-
-The frontend will be available at `http://localhost:5173`
-
-### Backend Setup
-
-```bash
-# Navigate to backend directory
-cd frontend/backend
-
-# Install Python dependencies
-pip install -r requirements.txt
-
-# Start the backend server
-python start.py
-```
-
-The backend will be available at `http://localhost:5000`
-
-### Database Setup
-
-1. Start MySQL service
-2. Create database:
-   ```sql
-   CREATE DATABASE buslensdb;
+1. **Install dependencies**:
+   ```bash
+   npm install
    ```
-3. The application will automatically create tables and insert sample data
 
-## 🎨 Design Philosophy
+2. **Set up environment variables**:
+   Create a `.env.local` file in the root directory:
+   ```env
+   NEXT_PUBLIC_API_URL=http://127.0.0.1:5000
+   NEXT_PUBLIC_MAPBOX_TOKEN=your_mapbox_token_here
+   ```
+
+3. **Run the development server**:
+   ```bash
+   npm run dev
+   ```
+
+4. **Open your browser**:
+   Navigate to [http://localhost:3000](http://localhost:3000)
+
+## 🏗️ Project Structure
+
+```
+frontend/
+├── src/
+│   ├── app/                 # Next.js App Router
+│   │   ├── globals.css     # Global styles
+│   │   ├── layout.tsx      # Root layout
+│   │   └── page.tsx        # Home page
+│   ├── components/         # React components
+│   │   ├── ui/            # Reusable UI components
+│   │   ├── navbar.tsx     # Navigation component
+│   │   ├── hero.tsx       # Hero section
+│   │   ├── route-search.tsx # Route search component
+│   │   ├── map-section.tsx  # Map visualization
+│   │   ├── insights.tsx   # Analytics dashboard
+│   │   ├── features.tsx   # Features showcase
+│   │   ├── about.tsx      # About section
+│   │   └── footer.tsx     # Footer component
+│   ├── hooks/             # Custom React hooks
+│   ├── lib/               # Utility functions
+│   ├── store/             # Zustand stores
+│   └── types/             # TypeScript type definitions
+├── public/                # Static assets
+├── tailwind.config.ts     # Tailwind configuration
+├── next.config.js         # Next.js configuration
+└── package.json           # Dependencies
+```
+
+## 🎨 Design System
+
+### Colors
+- **Primary**: Blue gradient (#0ea5e9 to #8b5cf6)
+- **Accent**: Purple, pink, orange, green variants
+- **Neutral**: Comprehensive gray scale
+- **Semantic**: Success, warning, error states
 
 ### Typography
-- **Font**: Inter (Google Fonts)
-- **Scale**: Modular scale with perfect ratios
-- **Weights**: 100-900 for maximum flexibility
-
-### Color System
-- **Primary**: Indigo (#6366f1) - Trust and reliability
-- **Secondary**: Emerald (#10b981) - Success and growth
-- **Accent**: Amber (#f59e0b) - Energy and attention
-- **Danger**: Red (#ef4444) - Alerts and warnings
-
-### Spacing
-- **Base Unit**: 0.25rem (4px)
-- **Scale**: 4, 8, 12, 16, 20, 24, 32, 40, 48, 64, 80, 96px
-- **Responsive**: Mobile-first approach
+- **Headings**: Poppins (700-800 weight)
+- **Body**: Inter (400-600 weight)
+- **Responsive**: Fluid typography scaling
 
 ### Components
-- **Cards**: Rounded corners (12px-24px)
-- **Buttons**: Rounded (8px-16px)
-- **Shadows**: Layered shadow system
-- **Animations**: 200ms-300ms transitions
+- **Glassmorphism Cards**: Frosted glass effect
+- **Gradient Buttons**: Eye-catching CTAs
+- **Floating Labels**: Modern form inputs
+- **Animated Icons**: Delightful interactions
 
-## 🔧 API Endpoints
+## 🔧 Available Scripts
 
-### Stations
-- `GET /api/stations/search?q={query}` - Search stations
-- `GET /api/stations/{id}` - Get station details
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm run start` - Start production server
+- `npm run lint` - Run ESLint
+- `npm run type-check` - Run TypeScript compiler
 
-### Routes
-- `GET /api/routes/search?from={from}&to={to}` - Search routes
-- `GET /api/routes/{id}` - Get route details
-- `GET /api/routes` - Get all routes
+## 🌐 API Integration
 
-### Buses
-- `GET /api/buses/locations` - Get bus locations
-- `GET /api/buses/locations?route={id}` - Get buses for specific route
-- `GET /api/buses/{id}` - Get bus details
+The frontend integrates with the Flask backend API:
 
-### Analytics
-- `GET /api/analytics/system` - Get system statistics
-- `GET /api/analytics/routes/{id}` - Get route analytics
+- **Base URL**: `http://127.0.0.1:5000`
+- **Endpoints**:
+  - `POST /bus-routes` - Search for bus routes
 
-### WebSocket
-- `ws://localhost:5000/ws` - Real-time updates
-- Events: `bus_update`, `route_update`, `system_update`
+### Example API Call
 
-## 📱 Mobile Optimization
-
-- **Touch Targets**: Minimum 44px for accessibility
-- **Gestures**: Swipe, pinch, tap optimized
-- **Performance**: Lazy loading and code splitting
-- **Offline**: Service worker for basic functionality
-
-## 🌙 Dark Mode
-
-- **System Preference**: Automatic detection
-- **Manual Toggle**: User-controlled switching
-- **Persistence**: localStorage for preference
-- **Smooth Transitions**: 200ms color transitions
-
-## 🚌 Real-time Features
-
-- **Live Bus Tracking**: 10-second update intervals
-- **WebSocket Connection**: Persistent real-time updates
-- **Status Updates**: On-time, delayed, early indicators
-- **Passenger Counts**: Real-time occupancy data
-
-## 📊 Analytics
-
-- **Ridership Patterns**: Hourly, daily, weekly trends
-- **Route Performance**: On-time statistics
-- **System Health**: Active buses, routes, stations
-- **User Insights**: Search patterns and preferences
-
-## 🔒 Security
-
-- **CORS**: Configured for development and production
-- **Input Validation**: Server-side validation
-- **SQL Injection**: Parameterized queries
-- **XSS Protection**: Content sanitization
-
-## 🚀 Deployment
-
-### Frontend (Vercel/Netlify)
-```bash
-npm run build
-# Deploy dist/ folder
+```typescript
+const response = await fetch('http://127.0.0.1:5000/bus-routes', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({ 
+    stop1: 'Sector 17 Bus Stand', 
+    stop2: 'Panchkula Bus Stand' 
+  }),
+})
 ```
 
-### Backend (Railway/Heroku)
-```bash
-# Add Procfile
-web: python app.py
-```
+## 📱 Responsive Design
 
-### Database (PlanetScale/AWS RDS)
-- Use connection string in environment variables
-- Enable SSL for production
+- **Mobile**: 320px - 768px
+- **Tablet**: 768px - 1024px
+- **Desktop**: 1024px+
 
-## 📈 Performance
+## ♿ Accessibility
 
-- **Lighthouse Score**: 95+ across all metrics
-- **Core Web Vitals**: Optimized for LCP, FID, CLS
-- **Bundle Size**: < 500KB gzipped
-- **Load Time**: < 2s on 3G
+- **WCAG 2.1 AA** compliant
+- **Keyboard navigation** support
+- **Screen reader** friendly
+- **High contrast** mode support
+- **Focus management** for modals and forms
+
+## 🚀 Performance
+
+- **Next.js 14** optimizations
+- **Image optimization** with Next.js Image
+- **Code splitting** and lazy loading
+- **Bundle analysis** with webpack-bundle-analyzer
+- **Core Web Vitals** optimized
+
+## 🔮 Future Enhancements
+
+- **Real-time tracking** with WebSocket integration
+- **PWA features** for offline support
+- **Push notifications** for route updates
+- **User accounts** and favorites
+- **Multi-language** support
+- **Advanced filtering** and sorting
 
 ## 🤝 Contributing
 
 1. Fork the repository
-2. Create feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit changes (`git commit -m 'Add amazing feature'`)
-4. Push to branch (`git push origin feature/amazing-feature`)
-5. Open Pull Request
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
 ## 📄 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 👨‍💻 Author
-
-**Deepak Shandilya**
-- GitHub: [@deepakshandilya](https://github.com/deepakshandilya)
-- LinkedIn: [@deepakshandilyaa](https://linkedin.com/in/deepakshandilyaa)
-
 ## 🙏 Acknowledgments
 
-- Tricity Transport Department for route data
-- OpenStreetMap for map tiles
-- React and Tailwind communities
-- All contributors and testers
+- **Next.js Team** - For the amazing framework
+- **Tailwind CSS** - For the utility-first CSS framework
+- **Radix UI** - For accessible component primitives
+- **Recharts** - For beautiful data visualization
+- **Lucide** - For the beautiful icon set
 
 ---
 
-**Built with ❤️ for the Tricity region**
+**Built with ❤️ for the Tricity community**
