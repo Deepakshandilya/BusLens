@@ -8,7 +8,7 @@ from app.api.v1.stops import router as stops_router
 from app.api.v1.routes import router as routes_router 
 
 def create_app() -> FastAPI:
-    setup_logging
+    setup_logging()
 
     app = FastAPI(
         title="BusLens API",
