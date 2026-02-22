@@ -4,8 +4,8 @@ from app.main import app
 
 client = TestClient(app)
 
-@pytest.mark.skip(reason="Requires local DB with stops table populated")
-def test_stops_search():
-    r = client.get("/v1/stops", params={"query": "ISBT", "limit": 5})
+def test_stops_search(client):
+    r = client.get("/v1/stops", params={"query": "Kha", "limit": 10})
     assert r.status_code == 200
-    assert "results" in r.json()
+    data = r.json()
+    assert any("Kharar" in x["name"] for x in data["results"])

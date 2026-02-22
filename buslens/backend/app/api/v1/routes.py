@@ -4,7 +4,8 @@ from sqlalchemy.orm import Session
 from app.db.session import get_db
 from app.schemas.routes import RouteSearchRequest, RouteSearchResult, RouteDetailResponse
 from app.repositories.routes_repo import find_route_matches, get_stops_between, get_route_detail
-from app.services.route_service import normalize_stop_name
+# from app.services.route_service import normalize_stop_name
+from app.services.validation import normalize_stop_name, normalize_direction
 
 router = APIRouter()
 
@@ -41,11 +42,16 @@ def route_detail(
     direction: str, 
     db: Session = Depends(get_db)
 ):
-    direction = direction.upper().strip()
-    if direction not in {"UP", "DOWN"}:
-        raise HTTPException(status_code=400, detail="direction must be UP or DOWN")
+    route_number = route_number.strip()
+    if not route_number:
+        raise HTTPException(status_code=400, detail="route_number cannot be empty")
 
-    data = get_route_detail(db, route_number.strip(), direction)
+    try:
+        direction = normalize_direction(direction)
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+
+    data = get_route_detail(db, route_number, direction)
     if not data:
         raise HTTPException(status_code=404, detail="Route not found")
 
