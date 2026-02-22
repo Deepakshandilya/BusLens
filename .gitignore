@@ -1,6 +1,7 @@
 .env
 myenv
 myvenv
+.venv
 zappa_settings.json
 awsbillss.png
 src/buslens-app/
