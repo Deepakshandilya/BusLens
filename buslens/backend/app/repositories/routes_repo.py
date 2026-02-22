@@ -70,3 +70,32 @@ def get_route_detail(db: Session, route_number: str, direction: str) -> dict | N
         "direction": route["direction"],
         "stops": [{"sequence_no": x["sequence_no"], "name": x["name"]} for x in stops],
     }
+
+def get_routes_for_stop(db: Session, stop_id: int) -> dict | None:
+    # stop name
+    stop_sql = text("SELECT id, name FROM stops WHERE id = :stop_id LIMIT 1")
+    stop = db.execute(stop_sql, {"stop_id": stop_id}).mappings().first()
+    if not stop:
+        return None
+
+    routes_sql = text("""
+        SELECT r.route_number, r.direction, rs.sequence_no
+        FROM route_stops rs
+        JOIN routes r ON r.id = rs.route_id
+        WHERE rs.stop_id = :stop_id
+        ORDER BY r.route_number ASC, r.direction ASC
+    """)
+    rows = db.execute(routes_sql, {"stop_id": stop_id}).mappings().all()
+
+    return {
+        "stop_id": stop["id"],
+        "stop_name": stop["name"],
+        "routes": [
+            {
+                "route_number": x["route_number"],
+                "direction": x["direction"],
+                "sequence_no": int(x["sequence_no"]),
+            }
+            for x in rows
+        ],
+    }

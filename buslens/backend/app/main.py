@@ -6,6 +6,7 @@ from app.core.cors import add_cors
 from app.api.v1.health import router as health_router
 from app.api.v1.stops import router as stops_router
 from app.api.v1.routes import router as routes_router 
+from app.api.v1.stop_routes import router as stop_routes_router
 
 def create_app() -> FastAPI:
     setup_logging()
@@ -23,6 +24,7 @@ def create_app() -> FastAPI:
     app.include_router(health_router, prefix="/v1", tags=["health"])
     app.include_router(stops_router, prefix="/v1", tags=["stops"])
     app.include_router(routes_router, prefix="/v1", tags=["routes"])
+    app.include_router(stop_routes_router, prefix="/v1", tags=["stops-to-routes"])
 
     return app
 

@@ -1,7 +1,7 @@
 import os 
 from dataclasses import dataclass 
 from dotenv import load_dotenv 
-
+from typing import List
 load_dotenv()
 
 
@@ -36,6 +36,6 @@ class Settings:
             for origin in raw_origins.split(",")
             if origin.strip()
         ]
-
+    
 settings = Settings()
-
+print(vars(settings))
