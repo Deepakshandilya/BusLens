@@ -43,7 +43,6 @@ htmlcov/
 
 *.sqlite3
 *.db
-*.sql
 dump.sql
 
 # =========================
