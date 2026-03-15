@@ -1,4 +1,4 @@
-# 🚀 BusLens: Smart Bus Route Finder
+# 🚀 BusLens: Smart Bus Route Finder 
 
 BusLens is a **smart bus route search system** that allows users to find buses between two locations in **Chandigarh, Mohali, and nearby areas**. The system uses **AWS for deployment**, with a **Flask API on AWS Lambda** and a **frontend hosted on S3**.
 
